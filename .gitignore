@@ -1,0 +1,18 @@
+# 依赖目录
+node_modules
+
+# 构建产物
+apps/*/dist
+apps/*/storybook-static
+
+# 临时文件
+*.log
+storybook.log
+debug-storybook.log
+*.tsbuildinfo
+
+# 编辑器目录
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store

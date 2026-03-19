@@ -1,0 +1,27 @@
+import { Meta, Title, Subtitle, Description, Primary, Stories } from '@storybook/addon-docs/blocks';
+import * as ChapterCardStories from '../components/ChapterCard/ChapterCard.stories';
+
+<Meta of={ChapterCardStories} />
+
+<Title>author-studio</Title>
+<Subtitle>作者后台子项目的独立 Storybook</Subtitle>
+
+<Description>
+  这是 monorepo 中的第二个 React 子项目，专门模拟作者后台场景。
+  它拥有自己的 Storybook 入口、自己的 TypeScript 配置和自己的开发端口。
+</Description>
+
+## 当前包含的演示组件
+
+- `ChapterCard`：章节状态卡片
+- `ReleaseChecklist`：上线前检查清单
+
+## 为什么拆成独立子项目
+
+1. 不同业务域可以维护各自的组件和设计语言。
+2. 每个子项目都能独立运行 `npm run storybook`。
+3. 根目录仍然可以统一执行 check、lint 和 build。
+
+<Primary />
+
+<Stories />

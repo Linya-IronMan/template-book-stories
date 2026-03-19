@@ -1,0 +1,18 @@
+{
+  "name": "template-book-stories",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "check": "npm run check --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "build-storybook": "npm run build-storybook --workspaces --if-present",
+    "dev:reader-showcase": "npm run dev -w @template-book-stories/reader-showcase",
+    "dev:author-studio": "npm run dev -w @template-book-stories/author-studio",
+    "storybook:reader-showcase": "npm run storybook -w @template-book-stories/reader-showcase",
+    "storybook:author-studio": "npm run storybook -w @template-book-stories/author-studio"
+  }
+}

@@ -1,0 +1,31 @@
+import { Meta, Title, Subtitle, Description, Primary, Stories } from '@storybook/addon-docs/blocks';
+import * as BookCardStories from '../components/BookCard/BookCard.stories';
+
+<Meta of={BookCardStories} />
+
+<Title>项目说明</Title>
+<Subtitle>一个用于展示 React + Storybook 搭建方式的演示仓库</Subtitle>
+
+<Description>
+  这个 demo 使用 Vite 初始化 React 项目，再通过 Storybook 生成组件开发环境。
+  你可以把这里的组件继续扩展成真正的图书站点、内容平台后台，或者设计系统原型。
+</Description>
+
+## 当前包含的演示内容
+
+- `BookCard`：用于展示书籍概要、评分和进度
+- `ReadingStats`：用于展示创作或阅读统计面板
+- 应用首页直接复用组件，便于验证 Storybook 与真实页面的一致性
+
+## 推荐工作流
+
+1. 先在 `src/components` 中编写组件。
+2. 为每个组件补充 `.stories.tsx` 文件。
+3. 在 Storybook 中校验不同状态、主题和极端文案长度。
+4. 最后再回到业务页面进行组合开发。
+
+## 组件预览
+
+<Primary />
+
+<Stories />
