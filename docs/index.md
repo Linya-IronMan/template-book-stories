@@ -10,12 +10,19 @@
 
 ## 目录结构
 
+- `docs/`
+    - `maintenance/`：项目维护规范
+        - `git-commit.md`：Git 提交规范
+    - `index.md`：文档入口（当前文件）
+
 ## 辅助资料
 
-- 各包根目录 `packages/*/README.md`：面向包使用方的接入说明与最小示例。
+- 各包根目录 `components/*/README.md`：组件包的使用说明。
 - 这些文件只用于加速理解与导航，不替代 `docs/*.md` 规范正文；实现与测试仍以对应规范文档为准。
 
 ## 常见任务入口
+
+- [如何提交代码](maintenance/git-commit.md)
 
 ## 维护要求
 
