@@ -1,20 +1,21 @@
 # template-book-stories
 
-现在这个仓库已经改造成 **npm workspaces monorepo** 结构。
+这是一个基于 **npm workspaces monorepo** 结构的开发模板。
 
 ## 目录结构
 
 ```text
 apps/
-  reader-showcase/   # 读者端展示型 demo
-  author-studio/     # 作者后台型 demo
+  reader-showcase/   # 读者端应用模板
+  author-studio/     # 作者后台应用模板
+docs/                # 项目文档
 ```
 
 每个子项目都拥有：
 
 - 独立的 React + Vite 应用
-- 独立的 `.storybook` 配置
-- 独立的 `package.json` 脚本
+- 独立的 .storybook 配置
+- 独立的 package.json 脚本
 - 独立的 TypeScript 检查命令
 
 ## 根目录常用命令
