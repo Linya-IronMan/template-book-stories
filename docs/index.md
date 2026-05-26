@@ -13,6 +13,8 @@
 - `docs/`
     - `maintenance/`：项目维护规范
         - `git-commit.md`：Git 提交规范
+    - `reactflow/`：ReactFlow 组件规范
+        - `README.md`：设计与开发指南
     - `index.md`：文档入口（当前文件）
 
 ## 辅助资料
@@ -23,6 +25,7 @@
 ## 常见任务入口
 
 - [如何提交代码](maintenance/git-commit.md)
+- [ReactFlow 开发指南](reactflow/README.md)
 
 ## 维护要求
 
