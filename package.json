@@ -2,11 +2,34 @@
   "name": "template-book-stories",
   "private": true,
   "version": "0.0.0",
-  "workspaces": [],
+  "workspaces": [
+    "apps/*",
+    "components/*"
+  ],
   "scripts": {
-    "check": "npm run check --workspaces --if-present",
-    "lint": "npm run lint --workspaces --if-present",
+    "dev": "npm run dev -w @template-book-stories/storybook",
     "build": "npm run build --workspaces --if-present",
-    "build-storybook": "npm run build-storybook --workspaces --if-present"
+    "lint": "npm run lint --workspaces --if-present",
+    "check": "npm run check --workspaces --if-present",
+    "storybook": "npm run storybook -w @template-book-stories/storybook",
+    "build-storybook": "npm run build-storybook -w @template-book-stories/storybook"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.4",
+    "@storybook/addon-essentials": "^8.5.3",
+    "@storybook/addon-interactions": "^8.5.3",
+    "@storybook/addon-onboarding": "^8.5.3",
+    "@storybook/blocks": "^8.5.3",
+    "@storybook/react": "^8.5.3",
+    "@storybook/react-vite": "^8.5.3",
+    "@storybook/test": "^8.5.3",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "storybook": "^8.5.3",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.11"
   }
 }
