@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import { CustomReactFlow } from './CustomReactFlow';
 
 const meta: Meta<typeof CustomReactFlow> = {
@@ -6,6 +7,11 @@ const meta: Meta<typeof CustomReactFlow> = {
   component: CustomReactFlow,
   parameters: {
     layout: 'fullscreen',
+  },
+  args: {
+    onNodesChange: fn(),
+    onEdgesChange: fn(),
+    onConnect: fn(),
   },
 };
 

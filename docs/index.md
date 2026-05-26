@@ -15,6 +15,8 @@
         - `git-commit.md`：Git 提交规范
     - `reactflow/`：ReactFlow 组件规范
         - `README.md`：设计与开发指南
+    - `storybook/`：Storybook 平台指南
+        - `actions.md`：Actions 原理与使用方式
     - `index.md`：文档入口（当前文件）
 
 ## 辅助资料
@@ -26,6 +28,7 @@
 
 - [如何提交代码](maintenance/git-commit.md)
 - [ReactFlow 开发指南](reactflow/README.md)
+- [如何配置 Storybook Actions](storybook/actions.md)
 
 ## 维护要求
 

@@ -10,6 +10,9 @@ import {
   type Node,
   type Edge,
   type Connection,
+  type OnNodesChange,
+  type OnEdgesChange,
+  type OnConnect,
 } from '@xyflow/react';
 
 import '@xyflow/react/dist/style.css';
@@ -19,6 +22,9 @@ export interface CustomReactFlowProps {
   initialEdges?: Edge[];
   height?: string | number;
   width?: string | number;
+  onNodesChange?: OnNodesChange;
+  onEdgesChange?: OnEdgesChange;
+  onConnect?: OnConnect;
 }
 
 /**
@@ -30,11 +36,27 @@ export const CustomReactFlow: React.FC<CustomReactFlowProps> = ({
   initialEdges = [],
   height = '500px',
   width = '100%',
+  onNodesChange: onNodesChangeProp,
+  onEdgesChange: onEdgesChangeProp,
+  onConnect: onConnectProp,
 }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  const onConnect = (params: Connection) => setEdges((eds) => addEdge(params, eds));
+  const handleNodesChange: OnNodesChange = (changes) => {
+    onNodesChange(changes);
+    onNodesChangeProp?.(changes);
+  };
+
+  const handleEdgesChange: OnEdgesChange = (changes) => {
+    onEdgesChange(changes);
+    onEdgesChangeProp?.(changes);
+  };
+
+  const handleConnect: OnConnect = (params) => {
+    setEdges((eds) => addEdge(params, eds));
+    onConnectProp?.(params);
+  };
 
   const containerStyle = useMemo(() => ({ height, width }), [height, width]);
 
@@ -43,9 +65,9 @@ export const CustomReactFlow: React.FC<CustomReactFlowProps> = ({
       <ReactFlow
         nodes={nodes}
         edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
+        onNodesChange={handleNodesChange}
+        onEdgesChange={handleEdgesChange}
+        onConnect={handleConnect}
         fitView
       >
         <Background />
