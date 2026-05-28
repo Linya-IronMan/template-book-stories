@@ -1,0 +1,72 @@
+/* 通用节点基础容器 */
+.universal-node {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #fff;
+  min-width: 200px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  overflow: visible; /* 确保 Handle 可见 */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Header 顶部颜色条 */
+.universal-node-header-bar {
+  height: 4px;
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  background: #007aff; /* 默认蓝色 */
+}
+
+/* 节点各区域容器 */
+.universal-node-header,
+.universal-node-body,
+.universal-node-footer {
+  padding: 4px 0;
+}
+
+.universal-node-header {
+  border-bottom: 1px solid #333;
+  padding: 8px 0;
+}
+
+.universal-node-footer {
+  border-top: 1px solid #333;
+}
+
+/* 节点行样式 */
+.node-row {
+  position: relative;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+.node-row-content {
+  flex: 1;
+  width: 100%;
+}
+
+/* Handle 自定义样式 */
+.node-handle {
+  width: 8px !important;
+  height: 8px !important;
+  background: #fff !important;
+  border: 2px solid #007aff !important;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.node-handle:hover {
+  transform: scale(1.2);
+  background: #007aff !important;
+}
+
+.node-handle-left {
+  left: -5px !important;
+}
+
+.node-handle-right {
+  right: -5px !important;
+}

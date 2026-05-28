@@ -13,9 +13,18 @@ import {
   type OnNodesChange,
   type OnEdgesChange,
   type OnConnect,
+  type NodeTypes,
 } from '@xyflow/react';
 
 import '@xyflow/react/dist/style.css';
+import { UniversalNode } from './nodes/UniversalNode';
+
+/**
+ * 默认支持的节点类型
+ */
+const defaultNodeTypes: NodeTypes = {
+  universal: UniversalNode,
+};
 
 export interface CustomReactFlowProps {
   initialNodes?: Node[];
@@ -25,6 +34,8 @@ export interface CustomReactFlowProps {
   onNodesChange?: OnNodesChange;
   onEdgesChange?: OnEdgesChange;
   onConnect?: OnConnect;
+  /** 可选的自定义节点类型 */
+  nodeTypes?: NodeTypes;
 }
 
 /**
@@ -39,9 +50,18 @@ export const CustomReactFlow: React.FC<CustomReactFlowProps> = ({
   onNodesChange: onNodesChangeProp,
   onEdgesChange: onEdgesChangeProp,
   onConnect: onConnectProp,
+  nodeTypes: nodeTypesProp,
 }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+  /**
+   * 合并默认节点类型与外部传入的节点类型
+   */
+  const nodeTypes = useMemo(() => ({
+    ...defaultNodeTypes,
+    ...nodeTypesProp,
+  }), [nodeTypesProp]);
 
   const handleNodesChange: OnNodesChange = (changes) => {
     onNodesChange(changes);
@@ -68,6 +88,7 @@ export const CustomReactFlow: React.FC<CustomReactFlowProps> = ({
         onNodesChange={handleNodesChange}
         onEdgesChange={handleEdgesChange}
         onConnect={handleConnect}
+        nodeTypes={nodeTypes}
         fitView
       >
         <Background />
