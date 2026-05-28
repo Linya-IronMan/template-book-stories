@@ -69,7 +69,7 @@ feat: update code
 - `server`
 - `three`
 
-使用规则如下：
+使用规则示例如下：
 
 - 仅修改 `packages/core` 时，必须使用 `feat(core): ...`、`fix(core): ...` 这类格式。
 - 仅修改 `packages/server` 时，必须使用 `feat(server): ...`、`fix(server): ...` 这类格式。

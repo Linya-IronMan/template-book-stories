@@ -11,6 +11,8 @@
 ## 目录结构
 
 - `docs/`
+    - `design/`：设计图与视觉规范
+        - `README.md`：目录说明
     - `maintenance/`：项目维护规范
         - `git-commit.md`：Git 提交规范
     - `reactflow/`：ReactFlow 组件规范
