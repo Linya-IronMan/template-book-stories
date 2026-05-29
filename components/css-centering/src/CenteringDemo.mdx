@@ -1,0 +1,84 @@
+import { Meta, Canvas, Controls } from '@storybook/blocks';
+import * as CenteringDemoStories from './CenteringDemo.stories';
+
+<Meta of={CenteringDemoStories} name="技术文档与演示" />
+
+# CSS Centering Demos (2026 居中对齐特性演示)
+
+在现代 Web 布局中，居中对齐已超越了简单的 `place-content: center`。随着 W3C 新标准的普及，我们迎来了一套精细化、高容错、原生态的对齐体系。
+
+本篇文档为您展示 `@template-book-stories/css-centering` 组件库所提供的核心居中场景 Demo，并深入剖析其底层 CSS 原理。
+
+---
+
+## 1. 多元素居中折行差异 (Flexbox vs Grid)
+
+当容器内仅有一个子元素时，Flexbox 和 Grid 布局的水平垂直居中没有差异。但在**多元素折行**的场景下，它们对空间分配的计算机制截然不同：
+
+- **Flexbox (一维布局)**：折行到新的一行中的子元素，会将其作为独立的对齐行进行水平居中对齐，导致与上一行的元素列线错位。
+- **CSS Grid (二维布局)**：换行后的子元素严格遵循预设的网格轨道对齐（Grid Track），保持规整的垂直对齐线。
+
+### 交互演示
+<Canvas of={CenteringDemoStories.FlexVsGrid} />
+
+> [!TIP]
+> **设计建议**：在实际业务中（如商品列表、卡片网格），列线对齐更能给用户带来规整、统一的视觉体验，因此在这类场景下优先推荐使用 **CSS Grid**；而当需要根据内容自适应弹性折行且不强求垂直列线对齐时，可选用 **Flexbox**。
+
+---
+
+## 2. 文本完美垂直居中 (Text-box Trim)
+
+传统的文本垂直居中（如按钮、徽章）由于字体设计本身自带的**行高余白（Leading Whitespace / 半行距）**，总是会导致视觉重心产生上下偏移（对于大写英文字母通常偏下）。
+
+2026 年原生 CSS 引入的 `text-box` 属性（或 `text-box-trim` 和 `text-box-edge`）为这一顽疾提供了原理解析：
+- `text-box-trim: both`：裁剪掉文本上部和下部多余的白边。
+- `text-box-edge: cap alphabetic`：将渲染边界精准限制在大写字体的真实物理渲染顶点和基线（Baseline），消除白边干扰，实现绝对的几何垂直居中。
+
+### 交互演示
+<Canvas of={CenteringDemoStories.TextBoxTrim} />
+
+```css
+/* 现代完美居中按钮文本样式示例 */
+.perfect-centered-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 2026 原生文本高度裁剪 */
+  text-box: cap alphabetic;
+}
+```
+
+---
+
+## 3. 锚点定位与居中 (CSS Anchor Positioning)
+
+在 2026 年以前，实现一个悬浮菜单/气泡（Tooltip）相对目标按钮居中，必须使用 `transform: translate(-50%, -100%)` 等经典的 Hack 手段，这不仅容易与 CSS 动画发生冲突，还需要额外的计算嵌套。
+
+现代规范通过 **Anchor Positioning** 提供了原生支持：
+- 通过 `anchor-name: --my-anchor` 声明锚点。
+- 通过 `position-anchor: --my-anchor` 关联锚点。
+- 通过全新的对齐值 `place-self: end anchor-center` 指示浏览器将悬浮元素在水平方向上直接对准锚点的几何中心线。
+
+### 交互演示
+<Canvas of={CenteringDemoStories.AnchorPositioning} />
+
+---
+
+## 4. 安全与不安全居中 (Safe vs Unsafe)
+
+当子元素尺寸大于父容器时（例如在一个窄屏设备上渲染一个超宽的卡片），默认的居中对齐方式（`unsafe` 居中）会强制子元素几何居中，导致其左侧和顶部超出容器边界。由于变成了负坐标，**即使父容器设置了 `overflow: auto`，用户也无法通过滚动条触及这些超出部分**，从而导致严重的内容与操作项丢失。
+
+`safe` 关键字解决了这个问题：
+- 当容器空间充足时，依然保持完美居中。
+- 当空间不足发生溢出时，对齐方式自动转换为 `start`（左上对齐），使滚动条生效，确保用户可以通过滚动查看完整内容。
+
+### 交互演示
+<Canvas of={CenteringDemoStories.SafeVsUnsafe} />
+
+```css
+/* 兼顾溢出容错的安全对齐 */
+.scroll-safe-container {
+  display: grid;
+  place-content: safe center;
+}
+```
