@@ -59,6 +59,18 @@ importers:
 
   apps/storybook: {}
 
+  components/css-centering:
+    devDependencies:
+      react:
+        specifier: ^19.0.0
+        version: 19.2.6
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.6(react@19.2.6)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
+
   components/reactflow:
     dependencies:
       '@ant-design/icons':

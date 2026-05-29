@@ -1,0 +1,517 @@
+/**
+ * @file styles.css
+ * @description 2026 CSS 居中演示组件的原生样式表，采用毛玻璃质感、渐变色与平滑的微交互设计。
+ */
+
+:root {
+  --color-bg-card: rgba(30, 30, 40, 0.85); /* 提高卡片背景的暗度以提升对比度 */
+  --color-border-card: rgba(255, 255, 255, 0.12);
+  --color-primary: #ff7a18;
+  --color-secondary: #e52e71;
+  --color-accent: #00d084;
+  --color-text-main: #ffffff; /* 变为主白 */
+  --color-text-muted: #e2e8f0; /* 变为高亮度浅灰色，显著提升对比度 */
+  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --glow-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   卡片通用布局与毛玻璃设计 (Card Layout & Glassmorphism)
+   ========================================================================== */
+
+.demo-dashboard {
+  font-family: var(--font-family-sans);
+  background: radial-gradient(circle at 50% 50%, #16162a 0%, #0a0a14 100%) !important;
+  color: var(--color-text-main) !important;
+  color-scheme: dark !important; /* 强制浏览器渲染为暗色模式 */
+  padding: 2.5rem;
+  border-radius: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.demo-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.demo-header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.05em;
+}
+
+.demo-header p {
+  color: var(--color-text-muted) !important;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2rem;
+}
+
+.demo-card {
+  background: var(--color-bg-card) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border-card) !important;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--glow-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  color: var(--color-text-main) !important;
+}
+
+.demo-card:hover {
+  border-color: rgba(255, 122, 24, 0.4) !important;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ffffff !important; /* 强制标题文本为白色 */
+}
+
+.card-title::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 18px;
+  background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary));
+  border-radius: 2px;
+}
+
+.card-description {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-muted) !important; /* 强制描述文本为显眼的浅灰色 */
+  line-height: 1.6;
+}
+
+.card-controls {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0.5rem 0;
+}
+
+.control-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: var(--color-text-main) !important;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.control-btn.active {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%) !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.demo-viewport {
+  background: rgba(10, 10, 15, 0.8);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 2026 现代 CSS :has() 伪类：当视口内部含有可变大小容器时，强制使其在父级 dashed 虚线框中水平垂直双向居中 */
+.demo-viewport:has(.viewport-resizable) {
+  display: grid;
+  place-items: center;
+}
+
+/* ==========================================================================
+   演示模块 1: Flexbox 与 Grid 差异对比
+   ========================================================================== */
+
+.viewport-resizable {
+  resize: horizontal;
+  overflow: auto;
+  min-width: 250px;
+  max-width: 100%;
+  width: 80%;
+  margin: 0 auto;
+  /* 为容器提供完整的轮廓边界与轻微背景，右侧保留加粗的橙色拉伸边框 */
+  background: rgba(255, 255, 255, 0.02);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-right: 4.5px solid var(--color-primary);
+  box-sizing: border-box;
+}
+
+/* 拖拽指示器样式 */
+.viewport-resizable::after {
+  content: '↔ Drag to Resize';
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  font-size: 10px;
+  color: var(--color-primary);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* 居中核心实现 */
+.align-container-flex {
+  display: flex;
+  flex-wrap: wrap;
+  place-content: center;
+  height: 100%;
+  gap: 12px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.align-container-grid {
+  display: grid;
+  /* 显式定义动态多列轨道，使 Grid 默认也横向排布。这能与 Flex 形成完美的“一维弹性流居中” vs “二维严格网格居中”对比 */
+  grid-template-columns: repeat(auto-fit, minmax(65px, max-content));
+  place-content: center;
+  justify-content: center;
+  height: 100%;
+  gap: 12px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+/* 网格/盒子元素设计 */
+.box-item {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(229, 46, 113, 0.2);
+  transition: all 0.2s ease;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.box-item:hover {
+  transform: scale(1.05);
+}
+
+/* 不同大小盒子的类 */
+.box-size-1 { width: 55px; height: 55px; }
+.box-size-2 { width: 75px; height: 75px; }
+.box-size-3 { width: 65px; height: 95px; }
+
+/* ==========================================================================
+   演示模块 2: Text-box 文本裁剪对齐
+   ========================================================================== */
+
+.align-container-textbox {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  padding: 20px;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+.text-box-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.text-box-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  height: 140px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.text-box-container::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 1px dashed rgba(229, 46, 113, 0.4);
+  z-index: 1;
+}
+
+.text-element {
+  background: rgba(0, 208, 132, 0.15);
+  border: 1.5px solid var(--color-accent);
+  color: var(--color-text-main);
+  font-family: 'Times New Roman', serif; /* 衬线字体更容易暴露行高空白问题 */
+  font-size: 2.8rem;
+  line-height: 1.8;
+  padding: 0 10px;
+  z-index: 2;
+  border-radius: 4px;
+}
+
+/* 2026 最新 text-box 特性 */
+.trim-none {
+  text-box-trim: none;
+}
+
+.trim-cap {
+  /* text-box 简写属性或 text-box-trim */
+  text-box-trim: both;
+  text-box-edge: cap alphabetic;
+  /* 降级简写语法 */
+  text-box: cap alphabetic;
+}
+
+.trim-ex {
+  text-box-trim: both;
+  text-box-edge: ex alphabetic;
+  text-box: ex alphabetic;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-radius: 4px;
+  color: var(--color-text-muted) !important;
+}
+
+/* ==========================================================================
+   演示模块 3: CSS 锚点定位与居中
+   ========================================================================== */
+
+.align-container-anchor {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* 锚点元素 */
+.anchor-element {
+  anchor-name: --my-anchor;
+  position: absolute;
+  /* 由 JS 根据拖拽或 Slider 控制 left & top */
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #00d084 0%, #0084f0 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 208, 132, 0.6);
+  cursor: grab;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+}
+
+.anchor-element:active {
+  cursor: grabbing;
+}
+
+/* 定位气泡 */
+.positioned-bubble {
+  position: absolute;
+  position-anchor: --my-anchor;
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: var(--color-text-main) !important;
+  padding: 8px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 5;
+  white-space: nowrap;
+}
+
+/* 3.1 区域居中（相对于包含块分配的顶部区域居中，不是相对于锚点） */
+.bubble-area-center {
+  position-area: top;
+  place-self: center;
+}
+
+/* 3.2 真正相对于锚点居中 */
+.bubble-anchor-center {
+  position-area: top;
+  place-self: end anchor-center;
+}
+
+/* 3.3 传统 Transform 方式 (Fallback/对照) */
+.bubble-classic-transform {
+  /* 由 JS 计算相对于锚点的位置 */
+  transform: translate(-50%, -100%) translateY(-12px);
+}
+
+.anchor-status-overlay {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted) !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.drag-tip {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: var(--color-text-muted) !important;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   演示模块 4: 安全与不安全居中
+   ========================================================================== */
+
+.align-container-safe {
+  display: flex;
+  height: 100%;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.scroll-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scroll-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-text-muted) !important;
+}
+
+.scroll-container {
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  height: 200px;
+  overflow: auto;
+  border-radius: 8px;
+  display: grid;
+}
+
+/* 美化滚动条 */
+.scroll-container::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-radius: 3px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary) !important;
+}
+
+/* 不安全居中 - 溢出时原点不可触及 */
+.align-unsafe {
+  place-content: center; /* 默认情况下是不安全的 */
+}
+
+/* 安全居中 - 溢出时切换到 start 对齐 */
+.align-safe {
+  place-content: safe center;
+}
+
+.huge-box {
+  width: 250px;
+  height: 250px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(229, 46, 113, 0.15),
+    rgba(229, 46, 113, 0.15) 10px,
+    rgba(229, 46, 113, 0.3) 10px,
+    rgba(229, 46, 113, 0.3) 20px
+  ) !important;
+  border: 2px dashed var(--color-secondary) !important;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff !important; /* 强制为高亮白色字体 */
+  text-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.9); /* 文字阴影辅助辨识 */
+  font-weight: 700;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+}
+
+/* 安全框标识辅助线 */
+.safe-indicator {
+  padding: 8px;
+  border: 1px solid var(--color-secondary) !important;
+  background: rgba(229, 46, 113, 0.25) !important;
+  border-radius: 4px;
+  color: #ffffff !important; /* 强制为白色 */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   兼容性提示横幅
+   ========================================================================== */
+.compat-banner {
+  background: rgba(229, 46, 113, 0.15);
+  border: 1px solid rgba(229, 46, 113, 0.3);
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.85rem;
+  color: #ff85a2;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

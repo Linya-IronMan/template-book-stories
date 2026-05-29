@@ -11,6 +11,8 @@
 ## 目录结构
 
 - `docs/`
+    - `css-centering/`：CSS 居中技术规范
+        - `README.md`：2026 CSS 居中与对齐指南
     - `design/`：设计图与视觉规范
         - `README.md`：目录说明
     - `maintenance/`：项目维护规范
@@ -29,6 +31,7 @@
 ## 常见任务入口
 
 - [如何提交代码](maintenance/git-commit.md)
+- [CSS 居中与对齐指南](css-centering/README.md)
 - [ReactFlow 开发指南](reactflow/README.md)
 - [如何配置 Storybook Actions](storybook/actions.md)
 

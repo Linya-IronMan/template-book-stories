@@ -1,0 +1,81 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import { FlexGridDemo } from '../../../components/css-centering/src/components/FlexGridDemo';
+import { TextBoxDemo } from '../../../components/css-centering/src/components/TextBoxDemo';
+import { AnchorDemo } from '../../../components/css-centering/src/components/AnchorDemo';
+import { SafeUnsafeDemo } from '../../../components/css-centering/src/components/SafeUnsafeDemo';
+
+<Meta title="CSS Features/2026 Centering Guide" />
+
+# 2026 CSS 居中与对齐技术指南
+
+CSS 居中技术在经历多年的野蛮生长后，于 2026 年迎来了高度的规范化与原生态化。本指南将结合最新 W3C 标准（如 `text-box-trim`、`anchor-center`、`safe/unsafe` 关键字），深入探讨现代对齐体系的精髓，并将交互式 Demo 分段穿插在各章节技术解析下方。
+
+---
+
+## 🧭 对齐的核心双轴心模型
+
+所有的 CSS 居中本质上都是**对齐（Alignment）**的特殊形态。理解对齐的核心在于辨析两个概念：
+
+1. **内容（Content）对齐**：控制容器内所有子元素作为一个“整体流动块”的分布（使用 `align-content` 和 `justify-content`）。
+2. **项目（Item）对齐**：控制每个子元素在其所分配的“网格格子/占位区域”内的个体自我对齐（使用 `align-items`、`justify-items` 及其简写 `place-items`，或者个体的 `place-self`）。
+
+---
+
+## 📘 核心技术解析
+
+### 1. Flexbox 与 Grid 在居中折行时的本质差异
+当容器内仅有一个子元素时，`display: flex; place-content: center` 与 `display: grid; place-content: center` 视觉效果毫无二致。
+But当存在**多个子元素且容器宽度受限发生折行**时：
+- **Flexbox** 在换行后，会使折行到新一行的元素**独立进行水平居中对齐**（容易导致上下行的元素列线错位）。
+- **CSS Grid** 布局则会让每个元素严丝合缝地**按照预设的网格列线进行对齐**。
+> [!TIP]
+> 在实际业务（如产品列表、卡片网格）中，元素保持规整的列对齐比单独行居中更符合直觉和常规使用的布局思路，因而在此类场景下 **CSS Grid** 的折行对齐更加适用；而当需要根据行宽弹性自适应流动居中时，则应考虑 **Flexbox**。
+
+<div style={{ margin: '1.5rem 0', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', overflow: 'hidden' }}>
+  <FlexGridDemo />
+</div>
+
+### 2. 文本完美居中的秘密：`text-box` (又称 `text-box-trim`)
+在过去，垂直居中文字由于字体固有的“行高额外白边（Leading Whitespace）”，总是会产生视觉偏移（尤其在按钮和徽章中）。
+2026 规范引入了 `text-box` 属性：
+```css
+.trimmed-text {
+  text-box: cap alphabetic; /* 裁剪大写字母与基线间的空白 */
+}
+```
+它能将行框边缘直接剪裁到字体的真实渲染边界，实现无可挑剔的几何级垂直居中。
+
+<div style={{ margin: '1.5rem 0', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', overflow: 'hidden' }}>
+  <TextBoxDemo />
+</div>
+
+### 3. 绝对定位时代的落幕与锚点定位（Anchor Positioning）
+使用 `transform: translate(-50%, -50%)` 对绝对定位进行居中是一种经典的 Hack 手段。它混淆了“位移转换（用于动画）”与“定位（用于版面分布）”的职责。
+Modern CSS 通过 **Anchor Positioning** 提供了原生支持：
+```css
+.tooltip {
+  position: absolute;
+  position-anchor: --my-button;
+  position-area: top;
+  place-self: end anchor-center; /* 完美在锚点上方水平居中对齐 */
+}
+```
+其中，`place-self: end anchor-center` 能够将定位元素水平对齐到锚点按钮的正中心，同时放置在顶部区域。
+
+<div style={{ margin: '1.5rem 0', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', overflow: 'hidden' }}>
+  <AnchorDemo />
+</div>
+
+### 4. 避免内容被吃掉：`safe` 居中
+当子元素比容器还大时，默认的居中（即 `unsafe` 居中）会将其中心与父级对齐，从而导致子元素的左侧和顶部被裁剪。因为溢出部分的坐标变为负数，**即使有滚动条也无法滚动上去查看**。
+Safe对齐提供了解法：
+```css
+.container {
+  display: grid;
+  place-content: safe center; /* 溢出时自动转换为 start 对齐，保留滚动可触及性 */
+}
+```
+
+<div style={{ margin: '1.5rem 0', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '12px', overflow: 'hidden' }}>
+  <SafeUnsafeDemo />
+</div>
