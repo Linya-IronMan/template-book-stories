@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Handle, Position } from '@xyflow/react';
 import { NodeRowData } from './types';
 
@@ -6,7 +6,7 @@ import { NodeRowData } from './types';
  * 节点中的单行组件
  * 支持左右侧 Handle 的独立配置
  */
-export const NodeRow: React.FC<NodeRowData> = ({
+export const NodeRow: FC<NodeRowData> = ({
   id,
   content,
   hasLeftHandle,

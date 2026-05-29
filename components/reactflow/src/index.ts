@@ -1,1 +1,10 @@
 export * from './CustomReactFlow';
+export { builtinNodeTypes } from './nodes/registry';
+export * from './nodes/types';
+export { NodeLayout, NODE_THEMES } from './nodes/NodeLayout';
+export { DatasetNode } from './nodes/DatasetNode';
+export { AnnotateNode } from './nodes/AnnotateNode';
+export { ReviewNode } from './nodes/ReviewNode';
+export { CompleteNode } from './nodes/CompleteNode';
+export { ArchiveNode } from './nodes/ArchiveNode';
+export { GenericWorkflowNode } from './nodes/GenericWorkflowNode';

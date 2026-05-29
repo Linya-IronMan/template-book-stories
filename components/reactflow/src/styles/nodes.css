@@ -1,72 +1,208 @@
-/* 通用节点基础容器 */
-.universal-node {
-  background: #1a1a1a;
-  border: 1px solid #333;
-  border-radius: 8px;
-  color: #fff;
-  min-width: 200px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  overflow: visible; /* 确保 Handle 可见 */
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+/* ===== 节点容器 (antd Card 覆盖) ===== */
+
+/**
+ * 确保 antd Card 的 overflow 为 visible，
+ * 使 Handle 可以在卡片边缘外正常显示
+ */
+.universal-node.ant-card {
+  overflow: visible;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* Header 顶部颜色条 */
-.universal-node-header-bar {
-  height: 4px;
-  width: 100%;
-  border-radius: 8px 8px 0 0;
-  background: #007aff; /* 默认蓝色 */
+.universal-node .ant-card-body {
+  overflow: visible;
 }
 
-/* 节点各区域容器 */
-.universal-node-header,
-.universal-node-body,
-.universal-node-footer {
-  padding: 4px 0;
-}
+/* ===== 区域布局 ===== */
 
+/** Header 区域：标题 + 可选的 headerRows */
 .universal-node-header {
-  border-bottom: 1px solid #333;
+  padding: 10px 0 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/** 标题行 */
+.universal-node-title {
+  padding: 0 14px;
+}
+
+/** Body 区域 */
+.universal-node-body {
   padding: 8px 0;
 }
 
+/** Footer 区域 */
 .universal-node-footer {
-  border-top: 1px solid #333;
+  padding: 6px 0;
+  border-top: 1px solid #f0f0f0;
 }
 
-/* 节点行样式 */
+/* ===== 节点行基础样式 ===== */
+
 .node-row {
   position: relative;
-  min-height: 32px;
+  min-height: 34px;
   display: flex;
   align-items: center;
-  padding: 0 12px;
+  padding: 0 14px;
   font-size: 13px;
+  line-height: 1.5;
 }
 
 .node-row-content {
   flex: 1;
   width: 100%;
+  z-index: 1;
 }
 
-/* Handle 自定义样式 */
+/* ===== 内容文本 ===== */
+
+.node-content-text {
+  color: rgba(0, 0, 0, 0.65);
+  padding: 4px 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ===== 选项按钮 ===== */
+
+.node-option-item {
+  width: 100%;
+  text-align: left;
+  background: #fafafa;
+  color: rgba(0, 0, 0, 0.85);
+  border: 1px solid #f0f0f0;
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin: 3px 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.node-option-item:hover {
+  background: #e6f4ff;
+  border-color: #91caff;
+  color: #1677ff;
+}
+
+/* ===== Add Option 按钮 ===== */
+
+.node-add-option {
+  color: #1677ff;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  font-size: 13px;
+}
+
+.node-add-option:hover {
+  background: #e6f4ff;
+}
+
+/* ===== Handle: 设计图风格 — 精致小圆点 ===== */
+
 .node-handle {
-  width: 8px !important;
-  height: 8px !important;
-  background: #fff !important;
-  border: 2px solid #007aff !important;
-  transition: transform 0.2s, background 0.2s;
+  width: 10px !important;
+  height: 10px !important;
+  background: #ffffff !important;
+  border: 2px solid #d9d9d9 !important;
+  z-index: 10;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .node-handle:hover {
-  transform: scale(1.2);
-  background: #007aff !important;
+  border-color: #1677ff !important;
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.1);
 }
 
 .node-handle-left {
-  left: -5px !important;
+  left: 0 !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
 }
 
 .node-handle-right {
-  right: -5px !important;
+  right: 0 !important;
+  top: 50% !important;
+  transform: translate(50%, -50%) !important;
+}
+
+.node-handle-top {
+  top: 0 !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.node-handle-bottom {
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translate(-50%, 50%) !important;
+}
+
+/* ===== 修正 body 内部行级 Handle 的缩进，使其外推至卡片物理边缘 ===== */
+.universal-node-body .node-handle-right {
+  right: -14px !important;
+}
+
+.universal-node-body .node-handle-left {
+  left: -14px !important;
+}
+
+/* ===== 连接线样式 ===== */
+
+.react-flow__edge-path {
+  stroke: #d9d9d9;
+  stroke-width: 1.5;
+}
+
+.react-flow__connection-path {
+  stroke: #1677ff;
+  stroke-width: 1.5;
+  stroke-dasharray: 5;
+}
+
+/* ===== 重置 React Flow 默认选中样式 ===== */
+.react-flow__node:focus-visible {
+  outline: none !important;
+}
+
+.react-flow__node.selected {
+  box-shadow: none !important;
+}
+
+/* ===== Dataset 节点虚拟滚动网格画廊 (VScroll Grid) ===== */
+.dataset-gallery-vscroll {
+  width: 100%;
+  overflow-y: auto; /* 开启纵向滚动 */
+  position: relative;
+  margin-top: 6px;
+  margin-bottom: 8px;
+  /* 隐藏滚动条 */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dataset-gallery-vscroll::-webkit-scrollbar {
+  display: none; /* Chrome/Safari 隐藏滚动条 */
+}
+
+.dataset-gallery-vscroll-item {
+  border-radius: 4px;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.05); /* 极细边框以突显边缘 */
+  transition: transform 0.15s, border-color 0.15s;
+  user-select: none;
+  -webkit-user-drag: none; /* 屏蔽默认的图片抓取 */
+}
+
+.dataset-gallery-vscroll-item:hover {
+  transform: scale(1.03);
+  border-color: #096dd9;
+  z-index: 10; /* 悬浮放大时显示在相邻图片之上 */
 }
