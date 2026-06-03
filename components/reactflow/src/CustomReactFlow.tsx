@@ -19,6 +19,7 @@ import { ConfigProvider } from 'antd';
 
 import '@xyflow/react/dist/style.css';
 import { builtinNodeTypes } from './nodes/registry';
+import { NODE_THEMES, DEFAULT_EDGE_COLOR } from './nodes/NodeLayout';
 
 /**
  * 默认支持的节点类型
@@ -74,7 +75,9 @@ export const CustomReactFlow: FC<CustomReactFlowProps> = ({
   };
 
   const handleConnect: OnConnect = (params) => {
-    setEdges((eds) => addEdge(params, eds));
+    const sourceNode = nodes.find((n) => n.id === params.source);
+    const stroke = NODE_THEMES[sourceNode?.type ?? '']?.color ?? DEFAULT_EDGE_COLOR;
+    setEdges((eds) => addEdge({ ...params, style: { stroke } }, eds));
     onConnectProp?.(params);
   };
 

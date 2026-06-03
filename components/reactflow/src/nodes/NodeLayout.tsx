@@ -25,6 +25,9 @@ const POSITION_MAP = {
   bottom: Position.Bottom,
 };
 
+/** 边的默认描边色 */
+export const DEFAULT_EDGE_COLOR = '#d9d9d9';
+
 /**
  * 统一的色彩和图标字典
  */

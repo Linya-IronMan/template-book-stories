@@ -1,3 +1,7 @@
+:root {
+  --rf-edge-color-default: #d9d9d9;
+}
+
 /* ===== 节点容器 (antd Card 覆盖) ===== */
 
 /**
@@ -156,7 +160,7 @@
 /* ===== 连接线样式 ===== */
 
 .react-flow__edge-path {
-  stroke: #d9d9d9;
+  stroke: var(--rf-edge-color-default);
   stroke-width: 1.5;
 }
 
