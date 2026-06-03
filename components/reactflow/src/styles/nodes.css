@@ -108,20 +108,39 @@
   background: #e6f4ff;
 }
 
-/* ===== Handle: 设计图风格 — 精致小圆点 ===== */
+/* ===== Handle: 主题色环形 + 呼吸灯 ===== */
 
-.node-handle {
-  width: 10px !important;
-  height: 10px !important;
-  background: #ffffff !important;
-  border: 2px solid #d9d9d9 !important;
+.react-flow__handle.node-handle {
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border: 2px solid var(--handle-color, #d9d9d9);
   z-index: 10;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.node-handle:hover {
-  border-color: #1677ff !important;
-  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.1);
+.react-flow__handle.node-handle:hover {
+  border-color: var(--handle-color, #1677ff);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--handle-color, #1677ff) 15%, transparent);
+}
+
+/* 无连线 Handle 呼吸灯：默认灰色 ↔ 节点主题色交替 */
+@keyframes handle-breathing {
+  0%, 100% {
+    border-color: #d9d9d9;
+  }
+  50% {
+    border-color: var(--handle-color, #1677ff);
+  }
+}
+
+.react-flow__handle.node-handle-breathing {
+  animation: handle-breathing 2s ease-in-out infinite;
+}
+
+.react-flow__handle.node-handle-breathing:hover {
+  animation: none;
+  border-color: var(--handle-color, #1677ff);
 }
 
 .node-handle-left {

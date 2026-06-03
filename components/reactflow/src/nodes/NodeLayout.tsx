@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Card, Typography, Flex } from 'antd';
-import { Handle, Position } from '@xyflow/react';
+import { Position } from '@xyflow/react';
+import { ThemedHandle } from './ThemedHandle';
 import * as Icons from '@ant-design/icons';
 import { HandleConfig } from './types';
 
@@ -74,17 +75,19 @@ export const NodeLayout: FC<NodeLayoutProps> = ({
         border: `1.5px solid ${theme.color}`,
         width: 240,
         boxShadow: `0 0 0 3px ${theme.color}15, 0 4px 12px rgba(0, 0, 0, 0.08)`,
+        '--handle-color': theme.color,
       }
     : {
         overflow: 'visible' as const,
         border: '1.5px solid transparent',
         width: 240,
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+        '--handle-color': theme.color,
       };
 
   // 辅助渲染单个 Handle 点
   const renderHandle = (h: HandleConfig) => (
-    <Handle
+    <ThemedHandle
       key={h.id}
       type={h.type}
       position={POSITION_MAP[h.position]}

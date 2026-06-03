@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { Handle, Position } from '@xyflow/react';
+import { Position } from '@xyflow/react';
+import { ThemedHandle } from './ThemedHandle';
 import { NodeRowData } from './types';
 
 /**
@@ -17,7 +18,7 @@ export const NodeRow: FC<NodeRowData> = ({
   return (
     <div className="node-row">
       {hasLeftHandle && (
-        <Handle
+        <ThemedHandle
           type={leftHandleType}
           position={Position.Left}
           id={`${id}-left`}
@@ -30,7 +31,7 @@ export const NodeRow: FC<NodeRowData> = ({
       </div>
 
       {hasRightHandle && (
-        <Handle
+        <ThemedHandle
           type={rightHandleType}
           position={Position.Right}
           id={`${id}-right`}

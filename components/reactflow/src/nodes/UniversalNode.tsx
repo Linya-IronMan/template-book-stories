@@ -28,12 +28,14 @@ const UniversalNodeComponent: FC<NodeProps<Node<UniversalNodeData>>> = ({ data, 
         border: `1.5px solid ${themeColor}`,
         minWidth: 240,
         boxShadow: `0 0 0 3px ${themeColor}15, 0 4px 12px rgba(0, 0, 0, 0.08)`,
+        '--handle-color': themeColor,
       }
     : {
         overflow: 'visible' as const,
         border: '1.5px solid transparent',
         minWidth: 240,
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+        '--handle-color': themeColor,
       };
 
   return (
